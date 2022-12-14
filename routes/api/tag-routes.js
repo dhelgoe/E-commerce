@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   try {
-    const tagData = await tagData.findAll({
+    const tagData = await Tag.findAll({
       include: [{ model: Product, through: ProductTag, }],
     });
     res.status(200).json(tagData);
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
-    const tagData = await User.findByPk(req.params.id, {
+    const tagData = await Tag.findByPk(req.params.id, {
       include: [{model: Product}],
     });
     if (!tagData) {
@@ -45,8 +45,9 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+  console.log ("hey")
   try {
-    const tagData = await Category.update(req.body, {
+    const tagData = await Tag.update(req.body, {
       where: { id: req.params.id }
     });
     if (!tagData) {
